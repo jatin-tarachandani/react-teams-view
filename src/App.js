@@ -1,24 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
+import * as microsoftTeams from "@microsoft/teams-js";
+import Form from './form/Form.js'
+import { FluentProvider, teamsLightTheme, teamsDarkTheme } from '@fluentui/react-components';
+
+
 
 function App() {
+  try 
+  {
+    microsoftTeams.app.initialize();
+  }
+  catch(err)
+  {
+    console.log("Error in initializing teams");
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FluentProvider theme={teamsLightTheme} >
+    <Form />
+    </FluentProvider>
   );
 }
 
