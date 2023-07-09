@@ -11,6 +11,8 @@ import { makeStyles, shorthands, Dropdown, Option, Input, Label, useId, Divider,
 
 
 const useStyles = makeStyles({
+    // ...existing styles...
+
     root: {
         // Stack the label above the field
         display: "flex",
@@ -20,10 +22,50 @@ const useStyles = makeStyles({
         ...shorthands.gap("2px"),
         // Prevent the example from taking the full width of the page (optional)
         // maxWidth: "300px",
+        width: "70%",
 
     },
-});
+  
+    header: {
+      alignItems: "center",
+      justifyContent: "center",
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      fontWeight: "bold",
+      
+      
+      paddingBottom: "10px",
+    },
+  
+    mainContainer: {
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      marginBottom: "10px",
+    },
+  
+    input: {
+        height: "35px",
+        width: "100%",
+        borderTopWidth: "2px",
+        borderRightWidth: "2px",
+        borderBottomWidth: "2px",
+        borderLeftWidth: "2px",
+        
+        
+        
+      },
 
+    subForm:{
+        width : "100%",
+    },
+
+    button: {
+        width: "100%",
+        height: "35px",
+    }
+  });
 
 function Form() {
     const [showPopup, setShowPopup] = useState(false);
@@ -86,30 +128,36 @@ function Form() {
     }
 
     return (
-        <div>
+        <div className={styles.header}>
+
+            {/* <h1>Jenkins Actions </h1> */}
+
             <form ref={formRef} onSubmit={(e) => { submitFormData(e); }} className={styles.root} style={{ 'margin': '30px' }}>
-                <Label htmlFor={"clusterNameInput"}>Cluster Name</Label>
-                <Input id="clusterNameInput" style={{ 'width': '300px' }} defaultValue={clustername} disabled />
-                <Label htmlFor={'command'}>Command</Label>
-                <Dropdown
-                    id={'command'}
-                    placeholder={'Select a command'}
-                    value={formData.command}
-                    onOptionSelect={(e, option) => { onCommandChange(e, option) }}
-                    style={{ 'width': '300px' }}
-                >
-                    {dropDownOptions.map((option, index) => (
-                        <Option key={index} value={option.key} >
-                            {option.text}
-                        </Option>
-                    ))}
-                </Dropdown>
-                <br />
-                <Divider />
-                <div>
-                    {Subform(formData, setFormData)}
+                <div className={styles.mainContainer}>
+                    <Label htmlFor={"clusterNameInput"}>Cluster Name</Label>
+                    <Input className={styles.input} style={{ 'marginBottom': '15px' }} id="clusterNameInput" defaultValue={clustername} disabled />
+                    <Label htmlFor={'command'}>Command</Label>
+                    <Dropdown
+                        className={styles.input}
+                        id={'command'}
+                        placeholder={'Select a command'}
+                        value={formData.command}
+                        onOptionSelect={(e, option) => { onCommandChange(e, option) }}
+                    >
+                        {dropDownOptions.map((option, index) => (
+                            <Option key={index} value={option.key} >
+                                {option.text}
+                            </Option>
+                        ))}
+                    </Dropdown>
                 </div>
-                {submittable ? <Button type="submit" onClick={(e) => { submitFormData(e); }} appearance="primary" >Submit</Button> : <Button disabled appearance="primary">Submit</Button>}
+                <Divider />
+                <div className={styles.mainContainer} >
+                    {Subform(formData, setFormData)}
+                    {submittable ? <Button styles = {styles.button} type="submit" onClick={(e) => { submitFormData(e); }} appearance="primary" >Submit</Button> : <Button disabled appearance="primary">Submit</Button>}
+                </div>
+                
+                
                 {/* <Button onClick={(e) => {submitFormData();}} appearance="primary">Submit</Button> */}
             </form>
         </div>
