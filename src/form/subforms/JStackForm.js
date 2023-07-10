@@ -31,12 +31,11 @@ const useStyles = makeStyles({
 function JStackForm({formData, setFormData}) {
 
     const defaultdata = {
-        "nodeName": undefined,
-        "jNumStacks": undefined,
-        "jRegexThrd": undefined,
-        "jRegexCls": undefined,
+        "jProcID": undefined,
+        "jNumStacks": 1,
+        "jRegexThrd": ".*",
+        "jRegexCls": ".*",
     }
-    
     
 
 
@@ -86,7 +85,7 @@ function JStackForm({formData, setFormData}) {
         <Label htmlFor={"jNumStacks"}>Number of JStacks</Label>
         <Input className={useStyles().input} id="jNumStacks" type="number" value={formData.jNumStacks || ''} onChange={(e, data) => {updateTextData(e, data);}} />
         <Label htmlFor={"jRegexThrd"}> Only show threads matching this regex </Label>
-        <Input className={useStyles().input} id="jRegexThrd" type="text" value={formData.jRegexThrd || ''} onChange={(e, data) => {updateTextData(e, data);}}/>
+        <Input className={useStyles().input} id="jRegexThrd" type="text" value={formData.jRegexThrd || ''}  onChange={(e, data) => {updateTextData(e, data);}}/>
         <Label htmlFor={"jRegexCls"}> Only show classes matching this regex </Label>
         <Input className={useStyles().input} id="jRegexCls" type="text" value={formData.jRegexCls || ''} onChange={(e, data) => {updateTextData(e, data);}}/>
         <br />

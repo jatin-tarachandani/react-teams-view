@@ -115,10 +115,12 @@ function Form() {
         formData.clusterName = clustername;
         console.log(formData);
         try {
-            microsoftTeams.dialog.url.submit(formData);
+            microsoftTeams.dialog.submit(formData, '420f59d0-db6c-48f3-b9da-22702831c5f0');
+
+            // microsoftTeams.tasks.submitTask(formData, '420f59d0-db6c-48f3-b9da-22702831c5f0');
         }
         catch (err) {
-            console.log("teams.dialog.url.submit did not work, threw an error")
+            console.log("teams.tasks.submit did not work, threw an error")
         }
 
 
