@@ -115,7 +115,7 @@ function Form() {
         formData.clusterName = clustername;
         console.log(formData);
         try {
-            // microsoftTeams.dialog.url    .submit(formData);
+            microsoftTeams.dialog.url.submit(formData);
         }
         catch (err) {
             console.log("teams.dialog.url.submit did not work, threw an error")

@@ -9,7 +9,7 @@ import { FluentProvider, teamsLightTheme, teamsDarkTheme } from '@fluentui/react
 function App() {
   try 
   {
-    // microsoftTeams.app.initialize();
+    microsoftTeams.app.initialize();
   }
   catch(err)
   {
