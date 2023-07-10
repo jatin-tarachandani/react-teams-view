@@ -74,8 +74,7 @@ function Form() {
     const [open, setOpen] = useState(false);
     const defaultValues = {
         clusterName: "",
-        command: "",
-        data: {},
+        command: ""
     }
     const formRef = useRef(null);
     const [formData, setFormData] = useState(defaultValues);
@@ -116,7 +115,7 @@ function Form() {
         formData.clusterName = clustername;
         console.log(formData);
         try {
-            microsoftTeams.dialog.url.submit(formData);
+            // microsoftTeams.dialog.url.submit(formData);
         }
         catch (err) {
             console.log("teams.dialog.url.submit did not work, threw an error")

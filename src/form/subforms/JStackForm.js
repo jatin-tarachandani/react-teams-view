@@ -44,12 +44,12 @@ function JStackForm({formData, setFormData}) {
         e.preventDefault();
         // console.log("updating dropdown selection");
         // console.log(val.optionValue);
-        setFormData({...formData, data: { ...formData.data, "nodeName": val.optionValue}});
+        setFormData({...formData,  "jProcID": val.optionValue});
     }
 
     function updateTextData(e, value) {
         e.preventDefault();
-        setFormData({ ...formData, data: { ...formData.data, [e.target.id]: value.value} });
+        setFormData({ ...formData,  [e.target.id]: value.value });
     }
 
     const params = new URLSearchParams(window.location.search);
@@ -73,7 +73,7 @@ function JStackForm({formData, setFormData}) {
         <Dropdown
             id={'jProcID'}
             placeholder="Select a nodename"
-            value={formData.data.nodeName || ''}
+            value={formData.jProcID|| ''}
             onOptionSelect={(e, option) => {updateDropdownData(e, option);}}
             className={useStyles().input}
         >
@@ -84,11 +84,11 @@ function JStackForm({formData, setFormData}) {
             ))}
         </Dropdown>
         <Label htmlFor={"jNumStacks"}>Number of JStacks</Label>
-        <Input className={useStyles().input} id="jNumStacks" type="number" value={formData.data.jNumStacks || ''} onChange={(e, data) => {updateTextData(e, data);}} />
+        <Input className={useStyles().input} id="jNumStacks" type="number" value={formData.jNumStacks || ''} onChange={(e, data) => {updateTextData(e, data);}} />
         <Label htmlFor={"jRegexThrd"}> Only show threads matching this regex </Label>
-        <Input className={useStyles().input} id="jRegexThrd" type="text" value={formData.data.jRegexThrd || ''} onChange={(e, data) => {updateTextData(e, data);}}/>
+        <Input className={useStyles().input} id="jRegexThrd" type="text" value={formData.jRegexThrd || ''} onChange={(e, data) => {updateTextData(e, data);}}/>
         <Label htmlFor={"jRegexCls"}> Only show classes matching this regex </Label>
-        <Input className={useStyles().input} id="jRegexCls" type="text" value={formData.data.jRegexCls || ''} onChange={(e, data) => {updateTextData(e, data);}}/>
+        <Input className={useStyles().input} id="jRegexCls" type="text" value={formData.jRegexCls || ''} onChange={(e, data) => {updateTextData(e, data);}}/>
         <br />
         </div>
     );
