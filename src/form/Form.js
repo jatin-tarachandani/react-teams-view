@@ -125,6 +125,7 @@ function Form() {
 
         
         setFormData(defaultValues);
+        setCommand('');
         setSubmitDisabled(true);
         setOpen(true);
     }
