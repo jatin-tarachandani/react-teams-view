@@ -16,6 +16,8 @@ function getSubFormMapping(command, formData, setFormData) {
         case "jStack":
             return <JStackForm formData={formData} setFormData={setFormData} />;
             break;
+        case '': 
+            return <div></div>;
         default:
             throw new Error("Invalid command");
     }

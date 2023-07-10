@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Component } from "react";
+
 import { useRef } from "react";
-import { useEffect } from "react";
+
 import * as microsoftTeams from '@microsoft/teams-js';
 
-import { Popup } from './Popup.js'
 import { dropDownOptions, getSubFormMapping } from "./FormConfig.js";
-import { makeStyles, shorthands, Dropdown, Option, Input, Label, useId, Divider, Button } from "@fluentui/react-components";
+import { makeStyles, shorthands, Dropdown, Option, Input, Label, Divider, Button, Dialog, DialogTrigger, DialogBody, DialogSurface, DialogContent, DialogActions } from "@fluentui/react-components";
+
 
 
 
@@ -55,6 +55,7 @@ const useStyles = makeStyles({
         
         
         
+        
       },
 
     subForm:{
@@ -68,7 +69,9 @@ const useStyles = makeStyles({
   });
 
 function Form() {
-    const [showPopup, setShowPopup] = useState(false);
+    
+
+    const [open, setOpen] = useState(false);
     const defaultValues = {
         clusterName: "",
         command: "",
@@ -76,7 +79,7 @@ function Form() {
     }
     const formRef = useRef(null);
     const [formData, setFormData] = useState(defaultValues);
-    const [submittable, setSubmittable] = useState(false);
+    const [submitDisabled, setSubmitDisabled] = useState(true);
 
     const params = new URLSearchParams(window.location.search);
     const clustername = params.get('clustername');
@@ -97,7 +100,8 @@ function Form() {
 
     function onCommandChange(e, option) {
         e.preventDefault();
-        setSubmittable(true); //since we can't change command back to null, we can always submit
+        setSubmitDisabled(false); //since we can't change command back to null, we can always submit, so the submit should NOT be disabled
+        
         setFormData({ ...formData, "command": option.optionValue });
         setCommand(option.optionValue);
 
@@ -110,7 +114,7 @@ function Form() {
         console.log("Submit of Form Data");
         //setFormData({...formData, "clusterName": clustername});
         formData.clusterName = clustername;
-
+        console.log(formData);
         try {
             microsoftTeams.dialog.url.submit(formData);
         }
@@ -120,11 +124,10 @@ function Form() {
 
 
 
-
+        
         setFormData(defaultValues);
-        setSubmittable(false);
-        setShowPopup(true);
-
+        setSubmitDisabled(true);
+        setOpen(true);
     }
 
     return (
@@ -135,7 +138,7 @@ function Form() {
             <form ref={formRef} onSubmit={(e) => { submitFormData(e); }} className={styles.root} style={{ 'margin': '30px' }}>
                 <div className={styles.mainContainer}>
                     <Label htmlFor={"clusterNameInput"}>Cluster Name</Label>
-                    <Input className={styles.input} style={{ 'marginBottom': '15px' }} id="clusterNameInput" defaultValue={clustername} disabled />
+                    <Input className={styles.input} style={{ 'marginBottom': '15px', 'fontWeight': 'bold'}} id="clusterNameInput" defaultValue={clustername} disabled />
                     <Label htmlFor={'command'}>Command</Label>
                     <Dropdown
                         className={styles.input}
@@ -154,11 +157,23 @@ function Form() {
                 <Divider />
                 <div className={styles.mainContainer} >
                     {Subform(formData, setFormData)}
-                    {submittable ? <Button styles = {styles.button} type="submit" onClick={(e) => { submitFormData(e); }} appearance="primary" >Submit</Button> : <Button disabled appearance="primary">Submit</Button>}
+                    {/* <Button styles = {styles.button} onClick={(e) => { submitFormData(e); }} appearance="primary" disabled={submitDisabled}>Submit</Button> */}
+                    <Dialog open={open} onOpenChange={(e, data) => setOpen(data.open)}> 
+                        <DialogTrigger>
+                        <Button styles = {styles.button} onClick={(e) => { submitFormData(e); }} appearance="primary" disabled={submitDisabled}>Submit</Button>
+                        </DialogTrigger>
+                        <DialogSurface>
+                            <DialogBody>
+                                <DialogContent>Your message has been submitted!</DialogContent>
+                                <DialogActions>
+                                    <DialogTrigger>
+                                        <Button appearance="primary">Close</Button>
+                                    </DialogTrigger>
+                                </DialogActions>
+                            </DialogBody>
+                        </DialogSurface>
+                    </Dialog>
                 </div>
-                
-                
-                {/* <Button onClick={(e) => {submitFormData();}} appearance="primary">Submit</Button> */}
             </form>
         </div>
     );
