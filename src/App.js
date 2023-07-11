@@ -8,7 +8,7 @@ import { FluentProvider, teamsLightTheme } from '@fluentui/react-components';
 function App() {
   try 
   {
-    microsoftTeams.app.initialize();
+    // microsoftTeams.app.initialize();
   }
   catch(err)
   {
