@@ -1,5 +1,4 @@
 import { Dropdown, Input, Label, Option, makeStyles, shorthands } from "@fluentui/react-components";
-import { useEffect } from "react";
 
 
 const useStyles = makeStyles({
@@ -14,9 +13,6 @@ const useStyles = makeStyles({
         width: '100%',
     },
     input: {
-
-        height: "35px",
-
         marginBottom: "10px",
         height: "35px",
         width: "100%",
@@ -35,8 +31,8 @@ function JStackForm({formData, setFormData}) {
         "jNumStacks": 1,
         "jRegexThrd": ".*",
         "jRegexCls": ".*",
-    }
-    
+    };
+    formData = {...formData, ...defaultdata};
 
 
     function updateDropdownData(e, val){
@@ -83,11 +79,11 @@ function JStackForm({formData, setFormData}) {
             ))}
         </Dropdown>
         <Label htmlFor={"jNumStacks"}>Number of JStacks</Label>
-        <Input className={useStyles().input} id="jNumStacks" type="number" value={formData.jNumStacks || ''} onChange={(e, data) => {updateTextData(e, data);}} />
+        <Input className={useStyles().input} id="jNumStacks" type="number" defaultValue="1" onChange={(e, data) => {updateTextData(e, data);}} />
         <Label htmlFor={"jRegexThrd"}> Only show threads matching this regex </Label>
-        <Input className={useStyles().input} id="jRegexThrd" type="text" value={formData.jRegexThrd || ''}  onChange={(e, data) => {updateTextData(e, data);}}/>
+        <Input className={useStyles().input} id="jRegexThrd" type="text" defaultValue=".*"  onChange={(e, data) => {updateTextData(e, data);}}/>
         <Label htmlFor={"jRegexCls"}> Only show classes matching this regex </Label>
-        <Input className={useStyles().input} id="jRegexCls" type="text" value={formData.jRegexCls || ''} onChange={(e, data) => {updateTextData(e, data);}}/>
+        <Input className={useStyles().input} id="jRegexCls" type="text" defaultValue=".*" onChange={(e, data) => {updateTextData(e, data);}}/>
         <br />
         </div>
     );

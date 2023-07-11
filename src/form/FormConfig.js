@@ -12,10 +12,8 @@ function getSubFormMapping(command, formData, setFormData) {
     switch(command) {
         case "clusterHealth":
             return <ClusterHealthForm formData={formData} setFormData={setFormData} />;
-            break;
         case "jStack":
             return <JStackForm formData={formData} setFormData={setFormData} />;
-            break;
         case '': 
             return <div></div>;
         default:

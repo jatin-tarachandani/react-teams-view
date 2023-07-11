@@ -1,8 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import * as microsoftTeams from "@microsoft/teams-js";
 import Form from './form/Form.js'
-import { FluentProvider, teamsLightTheme, teamsDarkTheme } from '@fluentui/react-components';
+import { FluentProvider, teamsLightTheme } from '@fluentui/react-components';
 
 
 

@@ -103,8 +103,6 @@ function Form() {
         
         setFormData({ ...formData, "command": option.optionValue });
         setCommand(option.optionValue);
-
-        console.log(option.optionValue);
     }
 
     function submitFormData(e) {
@@ -117,10 +115,9 @@ function Form() {
         try {
             microsoftTeams.dialog.submit(formData, '420f59d0-db6c-48f3-b9da-22702831c5f0');
 
-            // microsoftTeams.tasks.submitTask(formData, '420f59d0-db6c-48f3-b9da-22702831c5f0');
         }
         catch (err) {
-            console.log("teams.tasks.submit did not work, threw an error")
+            console.log("teams.dialog.submit did not work, threw an error")
         }
 
 
@@ -146,7 +143,7 @@ function Form() {
                         className={styles.input}
                         id={'command'}
                         placeholder={'Select a command'}
-                        value={formData.command}
+                        value={formData.command || ''}
                         onOptionSelect={(e, option) => { onCommandChange(e, option) }}
                     >
                         {dropDownOptions.map((option, index) => (
@@ -168,9 +165,6 @@ function Form() {
                             <DialogBody>
                                 <DialogContent>Your message has been submitted!</DialogContent>
                                 <DialogActions>
-                                    <DialogTrigger>
-                                        <Button appearance="primary">Close</Button>
-                                    </DialogTrigger>
                                 </DialogActions>
                             </DialogBody>
                         </DialogSurface>
