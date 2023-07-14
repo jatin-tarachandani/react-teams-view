@@ -113,7 +113,7 @@ function Form() {
         formData.clusterName = clustername;
         console.log(formData);
         try {
-            // microsoftTeams.dialog.submit(formData, '420f59d0-db6c-48f3-b9da-22702831c5f0');
+            microsoftTeams.dialog.submit(formData);
 
         }
         catch (err) {
@@ -163,7 +163,7 @@ function Form() {
                         </DialogTrigger>
                         <DialogSurface>
                             <DialogBody>
-                                <DialogContent>Your message has been submitted!</DialogContent>
+                                <DialogContent style={{'alignItems':'center'}}>Your message has been submitted!</DialogContent>
                                 <DialogActions>
                                 </DialogActions>
                             </DialogBody>

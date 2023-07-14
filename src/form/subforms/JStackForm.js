@@ -1,5 +1,5 @@
 import { Dropdown, Input, Label, Option, makeStyles, shorthands } from "@fluentui/react-components";
-
+import { useState } from "react";
 
 const useStyles = makeStyles({
     root: {
@@ -26,20 +26,26 @@ const useStyles = makeStyles({
 
 function JStackForm({formData, setFormData}) {
 
+    const [isFirstLoad, setFirstLoad] = useState(true);
     const defaultdata = {
-        "jProcID": undefined,
+        "jProcID": '',
         "jNumStacks": 1,
         "jRegexThrd": ".*",
         "jRegexCls": ".*",
     };
-    formData = {...formData, ...defaultdata};
+
+    if(isFirstLoad){
+        setFormData({...formData, ...defaultdata});
+        setFirstLoad(false);
+    }
 
 
     function updateDropdownData(e, val){
         e.preventDefault();
-        // console.log("updating dropdown selection");
-        // console.log(val.optionValue);
+        console.log("updating dropdown selection");
+        console.log(val.optionValue);
         setFormData({...formData,  "jProcID": val.optionValue});
+        console.log(formData);
     }
 
     function updateTextData(e, value) {
@@ -64,7 +70,7 @@ function JStackForm({formData, setFormData}) {
     return (
         <div className={useStyles().root}>
         <br />
-        <Label htmlFor={'jProcID'}>JStack Process ID</Label>
+        <Label htmlFor={'jProcID'}>Node Name</Label>
         <Dropdown
             id={'jProcID'}
             placeholder="Select a nodename"
@@ -79,11 +85,11 @@ function JStackForm({formData, setFormData}) {
             ))}
         </Dropdown>
         <Label htmlFor={"jNumStacks"}>Number of JStacks</Label>
-        <Input className={useStyles().input} id="jNumStacks" type="number" defaultValue="1" onChange={(e, data) => {updateTextData(e, data);}} />
+        <Input className={useStyles().input} id="jNumStacks" type="number" value={formData.jNumStacks || 1} onChange={(e, data) => {updateTextData(e, data);}} />
         <Label htmlFor={"jRegexThrd"}> Only show threads matching this regex </Label>
-        <Input className={useStyles().input} id="jRegexThrd" type="text" defaultValue=".*"  onChange={(e, data) => {updateTextData(e, data);}}/>
+        <Input className={useStyles().input} id="jRegexThrd" type="text" value={formData.jRegexThrd || '.*'}  onChange={(e, data) => {updateTextData(e, data);}}/>
         <Label htmlFor={"jRegexCls"}> Only show classes matching this regex </Label>
-        <Input className={useStyles().input} id="jRegexCls" type="text" defaultValue=".*" onChange={(e, data) => {updateTextData(e, data);}}/>
+        <Input className={useStyles().input} id="jRegexCls" type="text" value={formData.jRegexCls || '.*'}  onChange={(e, data) => {updateTextData(e, data);}}/>
         <br />
         </div>
     );
